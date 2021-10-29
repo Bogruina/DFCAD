@@ -183,6 +183,7 @@ namespace FlaskWurtzUI
             this.FlastDiameterTextBox.Name = "FlastDiameterTextBox";
             this.FlastDiameterTextBox.Size = new System.Drawing.Size(41, 23);
             this.FlastDiameterTextBox.TabIndex = 18;
+            this.FlastDiameterTextBox.Text = "0";
             this.toolTip1.SetToolTip(this.FlastDiameterTextBox, "Dependence A ≥ 2*E ");
             this.FlastDiameterTextBox.TextChanged += new System.EventHandler(this.FlastDiameterTextBox_TextChanged);
             this.FlastDiameterTextBox.Enter += new System.EventHandler(this.FlastDiameterTextBox_Enter);
@@ -193,6 +194,7 @@ namespace FlaskWurtzUI
             this.NeckLenghtTextBox.Name = "NeckLenghtTextBox";
             this.NeckLenghtTextBox.Size = new System.Drawing.Size(41, 23);
             this.NeckLenghtTextBox.TabIndex = 19;
+            this.NeckLenghtTextBox.Text = "0";
             this.NeckLenghtTextBox.TextChanged += new System.EventHandler(this.NeckLenghtTextBox_TextChanged);
             this.NeckLenghtTextBox.Enter += new System.EventHandler(this.NeckLenghtTextBox_Enter);
             // 
@@ -202,6 +204,7 @@ namespace FlaskWurtzUI
             this.BendDiameterTextBox.Name = "BendDiameterTextBox";
             this.BendDiameterTextBox.Size = new System.Drawing.Size(41, 23);
             this.BendDiameterTextBox.TabIndex = 20;
+            this.BendDiameterTextBox.Text = "0";
             this.BendDiameterTextBox.TextChanged += new System.EventHandler(this.BendDiameterTextBox_TextChanged);
             this.BendDiameterTextBox.Enter += new System.EventHandler(this.BendDiameterTextBox_Enter);
             // 
@@ -211,6 +214,7 @@ namespace FlaskWurtzUI
             this.BendLenghtTextBox.Name = "BendLenghtTextBox";
             this.BendLenghtTextBox.Size = new System.Drawing.Size(41, 23);
             this.BendLenghtTextBox.TabIndex = 21;
+            this.BendLenghtTextBox.Text = "0";
             this.BendLenghtTextBox.TextChanged += new System.EventHandler(this.BendLenghtTextBox_TextChanged);
             this.BendLenghtTextBox.Enter += new System.EventHandler(this.BendLenghtTextBox_Enter);
             // 
@@ -220,6 +224,7 @@ namespace FlaskWurtzUI
             this.NeckDiameterTextBox.Name = "NeckDiameterTextBox";
             this.NeckDiameterTextBox.Size = new System.Drawing.Size(41, 23);
             this.NeckDiameterTextBox.TabIndex = 22;
+            this.NeckDiameterTextBox.Text = "0";
             this.NeckDiameterTextBox.TextChanged += new System.EventHandler(this.NeckDiameterTextBox_TextChanged);
             this.NeckDiameterTextBox.Enter += new System.EventHandler(this.NeckDiameterTextBox_Enter);
             // 
