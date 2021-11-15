@@ -16,7 +16,9 @@ namespace FlaskWurtzUI
 {
     public partial class MainForm : Form
     {
-        private delegate void SafeCallDelegate(string text);
+        private delegate void AddToFileListDelegate(Control control);
+        
+        private AddToFileListDelegate fileListDelegate;
 
         private readonly Color _incorrectInputColor = Color.LightSalmon;
 
@@ -26,24 +28,14 @@ namespace FlaskWurtzUI
         public MainForm()
         {
             InitializeComponent();
+            
         }
        
         private async void CheckingTextBoxesAsync()
         {
             await Task.Run(() => ChekcingTextBoxes());
         }
-        private void WriteTextSafe(string text)
-        {
-            if (ErrorsLabel.InvokeRequired)
-            {
-                var d = new SafeCallDelegate(WriteTextSafe);
-                ErrorsLabel.Invoke(d, new object[] { text });
-            }
-            else
-            {
-                ErrorsLabel.Text = text;
-            }
-        }
+        
 
         private double DoubleParse(string data, Parameter parameter)
         {
@@ -80,59 +72,62 @@ namespace FlaskWurtzUI
                 Thread.Sleep(1000);
                 ErrorsLabel.Text = null;
                 ErrorsLabel.ForeColor = Color.Red;
+                
                 try
                 {
+                    
                     _currentParameters.FlaskDiameter = DoubleParse(FlastDiameterTextBox.Text, Parameter.FlaskDiameter);
-                    FlastDiameterTextBox.BackColor = _correctInputColor;
+                    //FlastDiameterTextBox.BackColor = _correctInputColor;
                     
                 }
                 catch (ArgumentException exception)
                 {
-                    FlastDiameterTextBox.BackColor = _incorrectInputColor;
+                    
+                   // FlastDiameterTextBox.BackColor = _incorrectInputColor;
                     ErrorsLabel.Text += exception.Message.ToString();
                 }
                
                 try
                 {
                     _currentParameters.NeckLenght = DoubleParse(NeckLenghtTextBox.Text, Parameter.NeckLenght);
-                    NeckLenghtTextBox.BackColor = _correctInputColor;
+                    //NeckLenghtTextBox.BackColor = _correctInputColor;
                 }
                 catch (ArgumentException exception)
                 {
-                    NeckLenghtTextBox.BackColor = _incorrectInputColor;
+                    //NeckLenghtTextBox.BackColor = _incorrectInputColor;
                     ErrorsLabel.Text += exception.Message.ToString();
                 }
 
                 try
                 {
                     _currentParameters.BendDiameter = DoubleParse(BendDiameterTextBox.Text, Parameter.BendDiameter);
-                    BendDiameterTextBox.BackColor = _correctInputColor;
+                    //BendDiameterTextBox.BackColor = _correctInputColor;
                 }
                 catch (ArgumentException exception)
                 {
-                    BendDiameterTextBox.BackColor = _incorrectInputColor;
+                    //BendDiameterTextBox.BackColor = _incorrectInputColor;
                     ErrorsLabel.Text += exception.Message;
                 }
 
                 try
                 {
                     _currentParameters.BendLenght = DoubleParse(BendLenghtTextBox.Text, Parameter.BendLenght);
-                    BendLenghtTextBox.BackColor = _correctInputColor;
+                    //BendLenghtTextBox.BackColor = _correctInputColor;
                 }
                 catch (ArgumentException exception)
                 {
-                    BendLenghtTextBox.BackColor = _incorrectInputColor;
+                    //BendLenghtTextBox.BackColor = _incorrectInputColor;
                     ErrorsLabel.Text += exception.Message;
                 }
                 
                 try
                 {
                     _currentParameters.NeckDiameter = DoubleParse(NeckDiameterTextBox.Text, Parameter.NeckDiameter);
-                    NeckDiameterTextBox.BackColor = _correctInputColor;
+                    //NeckDiameterTextBox.BackColor = _correctInputColor;
                 }
                 catch (ArgumentException exception)
                 {
-                    NeckDiameterTextBox.BackColor = _incorrectInputColor;
+                    //NeckDiameterTextBox.BackColor = _incorrectInputColor;
                     ErrorsLabel.Text += exception.Message;
                 }
 
