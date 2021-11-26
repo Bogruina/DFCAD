@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FlaskWurthzBLL\FlaskWurthzBLL.csproj" />
+    <ProjectReference Include="..\FlaskWurthzBLL\FlaskWurthzBuilder.csproj" />
     <ProjectReference Include="..\FlaskWurthzSDK\FlaskWurthzSDK.csproj" />
   </ItemGroup>
 

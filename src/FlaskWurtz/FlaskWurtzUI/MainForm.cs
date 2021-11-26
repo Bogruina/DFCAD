@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Threading;
 using System.Windows.Forms;
 using FlaskWurthzSDK;
@@ -17,27 +12,47 @@ namespace FlaskWurtzUI
 {
     public partial class MainForm : Form
     {
+        /// <summary>
+        /// Потокобезопасный вызов асинхронного метода
+        /// </summary>
         private BackgroundWorker _backgroundWorker = new BackgroundWorker();
-
+        
+        /// <summary>
+        /// Цвет TextBox при некорректном заполнении
+        /// </summary>
         private readonly Color _incorrectInputColor = Color.LightSalmon;
 
+        /// <summary>
+        /// Цвет TextBox при корректном заполнении
+        /// </summary>
         private readonly Color _correctInputColor = Color.White;
-
+       
+        /// <summary>
+        /// Текущие корректные параметры колбы
+        /// </summary>
         private FlaskWurthzParameters _currentParameters = new FlaskWurthzParameters();
         public MainForm()
         {
             InitializeComponent();
             
         }
-       
-        private async void CheckingTextBoxesAsync()
+       /// <summary>
+       /// Запускает проверку введенных параметров
+       /// </summary>
+        private void CheckingTextBoxesAsync()
         {
  
             _backgroundWorker.DoWork += (obj, ea) => ChekcingTextBoxes();
             _backgroundWorker.RunWorkerAsync();
         }
         
-
+        /// <summary>
+        /// Метод для парса строки в double
+        /// <pama>В случае неудачного парса выбрасывает исключение</pama>
+        /// </summary>
+        /// <param name="data">Текст, который требуется спарсить</param>
+        /// <param name="parameter">Текущий параметр</param>
+        /// <returns></returns>
         private double DoubleParse(string data, Parameter parameter)
         {
             try
@@ -50,7 +65,9 @@ namespace FlaskWurtzUI
                 throw new ArgumentException($"Parameter {parameter}  must contain only numbers\n");
             }
         }
-
+        /// <summary>
+        /// Метод для обновления зависимостей
+        /// </summary>
         private void UpdateDependencies()
         {
             try
@@ -64,7 +81,9 @@ namespace FlaskWurtzUI
                 DependenciesLabel.Text = null;
             }
         }
-
+        /// <summary>
+        /// Метод для проверки TextBox на корректность введеных значения
+        /// </summary>
         private void ChekcingTextBoxes()
         {
             while(true)
@@ -101,33 +120,33 @@ namespace FlaskWurtzUI
                 try
                 {
                     _currentParameters.BendDiameter = DoubleParse(BendDiameterTextBox.Text, Parameter.BendDiameter);
-                    //BendDiameterTextBox.BackColor = _correctInputColor;
+                    BendDiameterTextBox.BackColor = _correctInputColor;
                 }
                 catch (ArgumentException exception)
                 {
-                    //BendDiameterTextBox.BackColor = _incorrectInputColor;
+                    BendDiameterTextBox.BackColor = _incorrectInputColor;
                     ErrorsLabel.Text += exception.Message;
                 }
 
                 try
                 {
                     _currentParameters.BendLenght = DoubleParse(BendLenghtTextBox.Text, Parameter.BendLenght);
-                    //BendLenghtTextBox.BackColor = _correctInputColor;
+                    BendLenghtTextBox.BackColor = _correctInputColor;
                 }
                 catch (ArgumentException exception)
                 {
-                    //BendLenghtTextBox.BackColor = _incorrectInputColor;
+                    BendLenghtTextBox.BackColor = _incorrectInputColor;
                     ErrorsLabel.Text += exception.Message;
                 }
                 
                 try
                 {
                     _currentParameters.NeckDiameter = DoubleParse(NeckDiameterTextBox.Text, Parameter.NeckDiameter);
-                    //NeckDiameterTextBox.BackColor = _correctInputColor;
+                    NeckDiameterTextBox.BackColor = _correctInputColor;
                 }
                 catch (ArgumentException exception)
                 {
-                    //NeckDiameterTextBox.BackColor = _incorrectInputColor;
+                    NeckDiameterTextBox.BackColor = _incorrectInputColor;
                     ErrorsLabel.Text += exception.Message;
                 }
 
@@ -142,11 +161,6 @@ namespace FlaskWurtzUI
                 UpdateDependencies();
             }
         }
-        private void toolStripButton1_Click(object sender, EventArgs e)
-        {
-
-        }
-
        
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -160,20 +174,18 @@ namespace FlaskWurtzUI
             promptForm.Show();
         }
 
-        private void FlastDiameterTextBox_Enter(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void groupBox2_Enter(object sender, EventArgs e)
-        {
-
-        }
-
         private void BuildButton_Click(object sender, EventArgs e)
         {
-            var builder = new FlaskWurthzBuilder();
-            builder.Assembly(_currentParameters);
+            try
+            {
+                var builder = new FlaskWurthzBuilder();
+                builder.Assembly(_currentParameters);
+
+            }
+            catch(ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

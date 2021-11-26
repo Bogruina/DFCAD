@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using KompasAPI7;
-using Kompas6Constants;
 using Kompas6Constants3D;
 using Kompas6API5;
 using FlaskWurthzBLL.Service;
@@ -10,12 +8,19 @@ namespace FlaskWurthzBLL
 {
     class KompasWrapper
     {
-        private KompasObject _kompasObject;
-
+        /// <summary>
+        /// Объект интерфейса KompasObject для взимодействия с Kompas 3D
+        /// </summary>
         public KompasObject KompasObject { get; }
 
+        /// <summary>
+        /// Объект интерфейса KsPart для взимодействия с компонентом Kompas 3D
+        /// </summary>
         public ksPart Part { get; set; }
 
+        /// <summary>
+        /// Конструктор класса, выполняет запуск Kompas 3D
+        /// </summary>
         public KompasWrapper()
         {
             var progId = "KOMPAS.Application.5";
@@ -34,7 +39,7 @@ namespace FlaskWurthzBLL
         }
 
         /// <summary>
-        /// Метод для создания нового компонента в Компас3D.
+        /// Метод для создания нового компонента в Kompas 3D.
         /// </summary>
         public void GetNewPart()
         {

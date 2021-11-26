@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace FlaskWurthzSDK
 {
@@ -60,9 +59,8 @@ namespace FlaskWurthzSDK
             set 
             {
                 const double minValue = 30;
-                const double maxValue = 300;
                
-                Validator.AssertRangeParameters(minValue, maxValue, value, Parameter.BendLenght);
+                Validator.AssertRangeParameters(minValue, FlaskDiameter+NeckLenght, value, Parameter.BendLenght);
                 _bendLenght = value;
             }
         }
@@ -77,10 +75,9 @@ namespace FlaskWurthzSDK
             
             set 
             {
-                const double minValue = 20;
                 const double maxValue = 170;
                
-                Validator.AssertRangeParameters(minValue, maxValue, value, Parameter.FlaskDiameter);
+                Validator.AssertRangeParameters(2*NeckDiameter, maxValue, value, Parameter.FlaskDiameter);
                 _flaskDiameter = value;
             }
         }
@@ -94,10 +91,9 @@ namespace FlaskWurthzSDK
             get => _neckDiameter;
             set 
             {
-                const double minValue = 10;
                 const double maxValue = 85;
                 
-                Validator.AssertRangeParameters(minValue, maxValue, value, Parameter.NeckDiameter);
+                Validator.AssertRangeParameters(BendDiameter + 5.0, maxValue, value, Parameter.NeckDiameter);
                 _neckDiameter = value;
             }
         }
@@ -119,7 +115,5 @@ namespace FlaskWurthzSDK
                 _neckLenght = value;
             }
         }
-       
-
     }
 }

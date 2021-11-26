@@ -1,7 +1,4 @@
-﻿using System;
-using KompasAPI7;
-using Kompas6Constants;
-using Kompas6Constants3D;
+﻿using Kompas6Constants3D;
 using Kompas6API5;
 using FlaskWurthzSDK;
 
@@ -36,10 +33,8 @@ namespace FlaskWurthzBLL
         {
             var sketchDef = CreateSketch(Obj3dType.o3d_planeXOZ);
             var doc2d = (ksDocument2D)sketchDef.BeginEdit();
-
             doc2d.ksArcByPoint(0, 0, flaskDiameter / 2, 0, flaskDiameter / 2, 0, -flaskDiameter / 2, 1,1);
             doc2d.ksLineSeg(0, -20, 0, 20, 3);
-
             sketchDef.EndEdit();
 
             CreateRotation(sketchDef, flaskDiameter / 2, side:true);
@@ -55,9 +50,7 @@ namespace FlaskWurthzBLL
         {
             var sketchDef = CreateSketch(Obj3dType.o3d_planeXOY);
             var doc2d = (ksDocument2D)sketchDef.BeginEdit();
-
             doc2d.ksCircle(0,0,neckDiameter/2,1);
-
             sketchDef.EndEdit();
 
             CreateExtrusion(sketchDef, neckLenght+ flaskDiameter, side: true);
@@ -91,15 +84,12 @@ namespace FlaskWurthzBLL
             bool side = true)
         {
             ksObj3dTypeEnum type = ksObj3dTypeEnum.o3d_bossRotated;
-
             var rotationEntity = (ksEntity)_wrapper.Part.NewEntity((short)type);
-
             var rotationDef = (ksBossRotatedDefinition)rotationEntity.GetDefinition();
-            
-            rotationDef.SetSideParam(true, 360);
-            
-            rotationDef.SetSketch(sketchDef);
 
+            rotationDef.SetSideParam(true, 360);
+            rotationDef.SetSketch(sketchDef);
+            
             rotationEntity.Create();
         }
 
@@ -113,17 +103,15 @@ namespace FlaskWurthzBLL
             bool side = true, bool thin = true)
         {
             ksObj3dTypeEnum type = ksObj3dTypeEnum.o3d_bossExtrusion;
-
             var extrusionEntity = (ksEntity)_wrapper.Part.NewEntity((short)type);
-
             var extrusionDef = (ksBossExtrusionDefinition)extrusionEntity.GetDefinition();
+           
             extrusionDef.SetSideParam(side, (short)End_Type.etBlind,lenght);
             extrusionDef.directionType = side ?
                 (short)Direction_Type.dtNormal : (short)Direction_Type.dtReverse;
             extrusionDef.SetThinParam(thin, (short)Direction_Type.dtNormal, 0.5, 1);
-
             extrusionDef.SetSketch(sketchDef);
-
+            
             extrusionEntity.Create();
         }
 
@@ -135,7 +123,6 @@ namespace FlaskWurthzBLL
         private ksSketchDefinition CreateSketch(Obj3dType planeType)
         {
             var plane = (ksEntity)_wrapper.Part.GetDefaultEntity((short)planeType);
-
             var sketch = (ksEntity)_wrapper.Part.NewEntity((short)Obj3dType.o3d_sketch);
             ksSketchDefinition ksSketch = (ksSketchDefinition)sketch.GetDefinition();
 

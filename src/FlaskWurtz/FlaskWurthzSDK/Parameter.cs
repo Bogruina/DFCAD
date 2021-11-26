@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace FlaskWurthzSDK
 {
+    /// <summary>
+    /// Перечисление параметров Колбы Вюрца
+    /// </summary>
     public enum Parameter
     {
         BendDiameter,

@@ -186,7 +186,6 @@ namespace FlaskWurtzUI
             this.FlastDiameterTextBox.Size = new System.Drawing.Size(41, 23);
             this.FlastDiameterTextBox.TabIndex = 18;
             this.FlastDiameterTextBox.Text = "45";
-            this.FlastDiameterTextBox.Enter += new System.EventHandler(this.FlastDiameterTextBox_Enter);
             // 
             // NeckLenghtTextBox
             // 
@@ -301,7 +300,6 @@ namespace FlaskWurtzUI
             this.groupBox2.TabIndex = 29;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Errors";
-            this.groupBox2.Enter += new System.EventHandler(this.groupBox2_Enter);
             // 
             // DependenciesToolTip
             // 
@@ -310,9 +308,7 @@ namespace FlaskWurtzUI
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(368, 320);
             this.Controls.Add(this.groupBox2);
@@ -320,6 +316,8 @@ namespace FlaskWurtzUI
             this.Controls.Add(this.ParametersGroupbox);
             this.Controls.Add(this.PromtButton);
             this.Controls.Add(this.BuildButton);
+            this.MaximumSize = new System.Drawing.Size(384, 359);
+            this.MinimumSize = new System.Drawing.Size(384, 359);
             this.Name = "MainForm";
             this.Text = "Flask Wurtz";
             this.Load += new System.EventHandler(this.MainForm_Load);
