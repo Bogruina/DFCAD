@@ -2,8 +2,10 @@
 using Kompas6API5;
 using FlaskWurthzSDK;
 
+//TODO: Naming
 namespace FlaskWurthzBLL
 {
+    //TODO: RSDN. XML.
     public class FlaskWurthzBuilder
     {
         /// <summary>
@@ -20,6 +22,7 @@ namespace FlaskWurthzBLL
             _wrapper = new KompasWrapper();
             _wrapper.GetNewPart();
             BuildFlask(parameters.FlaskDiameter);
+            //TODO: RSDN. Длина строк
             BuildNeck(parameters.NeckLenght, parameters.NeckDiameter, parameters.FlaskDiameter);
             BuildBend(parameters.BendLenght, parameters.BendDiameter, parameters.FlaskDiameter, parameters.NeckLenght);
 

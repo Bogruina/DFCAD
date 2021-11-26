@@ -6,6 +6,7 @@ using FlaskWurthzBLL.Service;
 
 namespace FlaskWurthzBLL
 {
+    //TODO: RSDN. Явное написание модификатора доступа.
     class KompasWrapper
     {
         /// <summary>

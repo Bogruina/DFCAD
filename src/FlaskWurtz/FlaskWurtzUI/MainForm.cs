@@ -92,9 +92,9 @@ namespace FlaskWurtzUI
                 ErrorsLabel.Text = null;
                 ErrorsLabel.ForeColor = Color.Red;
                 
+                //TODO: Куча дублей.
                 try
                 {
-                    
                     _currentParameters.FlaskDiameter = DoubleParse(FlastDiameterTextBox.Text, Parameter.FlaskDiameter);
                     FlastDiameterTextBox.BackColor = Color.White;
                     
@@ -150,14 +150,7 @@ namespace FlaskWurtzUI
                     ErrorsLabel.Text += exception.Message;
                 }
 
-                if (string.IsNullOrEmpty(ErrorsLabel.Text))
-                {
-                    BuildButton.Enabled = true;
-                }
-                else
-                {
-                    BuildButton.Enabled = false;
-                }
+                BuildButton.Enabled = string.IsNullOrEmpty(ErrorsLabel.Text);
                 UpdateDependencies();
             }
         }
