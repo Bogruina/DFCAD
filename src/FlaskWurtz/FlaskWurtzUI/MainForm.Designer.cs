@@ -160,6 +160,7 @@ namespace FlaskWurtzUI
             this.BuildButton.TabIndex = 15;
             this.BuildButton.Text = "Build";
             this.BuildButton.UseVisualStyleBackColor = true;
+            this.BuildButton.Click += new System.EventHandler(this.BuildButton_Click);
             // 
             // PromtButton
             // 
@@ -184,7 +185,7 @@ namespace FlaskWurtzUI
             this.FlastDiameterTextBox.Name = "FlastDiameterTextBox";
             this.FlastDiameterTextBox.Size = new System.Drawing.Size(41, 23);
             this.FlastDiameterTextBox.TabIndex = 18;
-            this.FlastDiameterTextBox.Text = "20";
+            this.FlastDiameterTextBox.Text = "45";
             this.FlastDiameterTextBox.Enter += new System.EventHandler(this.FlastDiameterTextBox_Enter);
             // 
             // NeckLenghtTextBox

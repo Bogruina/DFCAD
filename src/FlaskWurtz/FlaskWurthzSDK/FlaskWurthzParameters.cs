@@ -5,16 +5,35 @@ namespace FlaskWurthzSDK
 {
     public class FlaskWurthzParameters
     {
+        /// <summary>
+        /// Поле, хранящее параметр диаметера отвода колбы
+        /// </summary>
         private double _bendDiameter;
 
+        /// <summary>
+        /// Поле, хранящее параметр длины отвода колбы
+        /// </summary>
         private double _bendLenght;
 
+        /// <summary>
+        /// Поле, хранящее параметр диаметра колбы
+        /// </summary>
         private double _flaskDiameter;
 
+        /// <summary>
+        /// Поле, хранящее параметр диаметра горла колбы
+        /// </summary>
         private double _neckDiameter;
 
+        /// <summary>
+        /// Поле, хранящее параметр длины горла колбы
+        /// </summary>
         private double _neckLenght;
        
+        /// <summary>
+        /// Свойство обрабатывающее поле диаметра отвода колбы,
+        /// Содержит валидацию доспустимых значений
+        /// </summary>
         public double BendDiameter
         {
             get => _bendDiameter;
@@ -30,6 +49,10 @@ namespace FlaskWurthzSDK
             }
         }
 
+        /// <summary>
+        /// Свойство обрабатывающее поле длины отвода колбы,
+        /// Содержит валидацию доспустимых значений
+        /// </summary>
         public double BendLenght
         {
             get => _bendLenght;
@@ -44,6 +67,10 @@ namespace FlaskWurthzSDK
             }
         }
 
+        /// <summary>
+        /// Свойство обрабатывающее поле диаметра колбы,
+        /// Содержит валидацию доспустимых значений
+        /// </summary>
         public double FlaskDiameter
         {
             get => _flaskDiameter;
@@ -51,13 +78,17 @@ namespace FlaskWurthzSDK
             set 
             {
                 const double minValue = 20;
-                const double maxValue = 100;
+                const double maxValue = 170;
                
                 Validator.AssertRangeParameters(minValue, maxValue, value, Parameter.FlaskDiameter);
                 _flaskDiameter = value;
             }
         }
 
+        /// <summary>
+        /// Свойство обрабатывающее поле диаметра горла колбы,
+        /// Содержит валидацию доспустимых значений
+        /// </summary>
         public double NeckDiameter
         {
             get => _neckDiameter;
@@ -71,6 +102,10 @@ namespace FlaskWurthzSDK
             }
         }
 
+        /// <summary>
+        /// Свойство обрабатывающее поле длины горла колбы,
+        /// Содержит валидацию доспустимых значений
+        /// </summary>
         public double NeckLenght
         {
             get => _neckLenght;

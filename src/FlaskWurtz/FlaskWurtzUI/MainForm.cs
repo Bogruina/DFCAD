@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Windows.Forms;
 using FlaskWurthzSDK;
+using FlaskWurthzBLL;
 
 //TODO: Асинхронный расчет зависимостей
 //TODO: 
@@ -16,9 +17,7 @@ namespace FlaskWurtzUI
 {
     public partial class MainForm : Form
     {
-        private delegate void AddToFileListDelegate(Control control);
-        
-        private AddToFileListDelegate fileListDelegate;
+        private BackgroundWorker _backgroundWorker = new BackgroundWorker();
 
         private readonly Color _incorrectInputColor = Color.LightSalmon;
 
@@ -33,7 +32,9 @@ namespace FlaskWurtzUI
        
         private async void CheckingTextBoxesAsync()
         {
-            await Task.Run(() => ChekcingTextBoxes());
+ 
+            _backgroundWorker.DoWork += (obj, ea) => ChekcingTextBoxes();
+            _backgroundWorker.RunWorkerAsync();
         }
         
 
@@ -66,9 +67,8 @@ namespace FlaskWurtzUI
 
         private void ChekcingTextBoxes()
         {
-            while (true)
-            {
-                
+            while(true)
+            {  
                 Thread.Sleep(1000);
                 ErrorsLabel.Text = null;
                 ErrorsLabel.ForeColor = Color.Red;
@@ -77,24 +77,24 @@ namespace FlaskWurtzUI
                 {
                     
                     _currentParameters.FlaskDiameter = DoubleParse(FlastDiameterTextBox.Text, Parameter.FlaskDiameter);
-                    //FlastDiameterTextBox.BackColor = _correctInputColor;
+                    FlastDiameterTextBox.BackColor = Color.White;
                     
                 }
                 catch (ArgumentException exception)
                 {
                     
-                   // FlastDiameterTextBox.BackColor = _incorrectInputColor;
+                    FlastDiameterTextBox.BackColor = _incorrectInputColor;
                     ErrorsLabel.Text += exception.Message.ToString();
                 }
                
                 try
                 {
                     _currentParameters.NeckLenght = DoubleParse(NeckLenghtTextBox.Text, Parameter.NeckLenght);
-                    //NeckLenghtTextBox.BackColor = _correctInputColor;
+                    NeckLenghtTextBox.BackColor = _correctInputColor;
                 }
                 catch (ArgumentException exception)
                 {
-                    //NeckLenghtTextBox.BackColor = _incorrectInputColor;
+                    NeckLenghtTextBox.BackColor = _incorrectInputColor;
                     ErrorsLabel.Text += exception.Message.ToString();
                 }
 
@@ -168,6 +168,12 @@ namespace FlaskWurtzUI
         private void groupBox2_Enter(object sender, EventArgs e)
         {
 
+        }
+
+        private void BuildButton_Click(object sender, EventArgs e)
+        {
+            var builder = new FlaskWurthzBuilder();
+            builder.Assembly(_currentParameters);
         }
     }
 }
