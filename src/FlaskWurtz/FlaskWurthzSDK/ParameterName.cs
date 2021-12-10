@@ -1,7 +1,6 @@
 ﻿
 namespace FlaskWurthzSDK
 {
-    //TODO: Naming
     /// <summary>
     /// Перечисление названий параметров Колбы Вюрца
     /// </summary>

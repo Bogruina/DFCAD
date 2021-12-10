@@ -2,10 +2,8 @@
 using Kompas6API5;
 using FlaskWurthzSDK;
 
-//TODO: Naming
 namespace FlaskWurthzKompasBuilder
 {
-    //TODO: RSDN. XML.
     /// <summary>
     /// Класс хранит поля и методы для построения 3D модели Колбы Вюрца
     /// </summary>
@@ -25,7 +23,6 @@ namespace FlaskWurthzKompasBuilder
             _wrapper = new KompasWrapper();
             _wrapper.GetNewPart();
             BuildFlask(parameters.FlaskDiameter);
-            //TODO: RSDN. Длина строк
             BuildNeck(parameters.NeckLength, parameters.NeckDiameter,
                 parameters.FlaskDiameter);
             BuildBend(parameters.BendLength, parameters.BendDiameter, 

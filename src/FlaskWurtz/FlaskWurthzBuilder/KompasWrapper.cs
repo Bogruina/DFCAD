@@ -6,7 +6,6 @@ using FlaskWurthzKompasBuilder.Service;
 
 namespace FlaskWurthzKompasBuilder
 {
-    //TODO: RSDN. Явное написание модификатора доступа.
     /// <summary>
     /// Класс для взаимодействия с Kompas 3D
     /// </summary>

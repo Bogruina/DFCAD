@@ -135,7 +135,6 @@ namespace FlaskWurtzUI
                 Thread.Sleep(1000);
                 ErrorsLabel.Text = null;
                 ErrorsLabel.ForeColor = Color.Red;
-                //TODO: Куча дублей
                 CheckTexBox(FlastDiameterTextBox, ParameterName.FlaskDiameter);
                 CheckTexBox(BendDiameterTextBox, ParameterName.BendDiameter);
                 CheckTexBox(BendLenghtTextBox, ParameterName.BendLength);
