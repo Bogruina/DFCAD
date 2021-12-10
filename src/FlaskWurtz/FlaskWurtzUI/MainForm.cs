@@ -4,18 +4,21 @@ using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 using FlaskWurthzSDK;
-using FlaskWurthzBLL;
+using FlaskWurthzKompasBuilder;
 
-//TODO: Асинхронный расчет зависимостей
-//TODO: 
 namespace FlaskWurtzUI
 {
+    /// <summary>
+    /// Класс, хранищий и  обрабатывающий
+    /// пользовательский интерфейс плагина
+    /// </summary>
     public partial class MainForm : Form
     {
         /// <summary>
         /// Потокобезопасный вызов асинхронного метода
         /// </summary>
-        private BackgroundWorker _backgroundWorker = new BackgroundWorker();
+        private BackgroundWorker _backgroundWorker =
+            new BackgroundWorker();
         
         /// <summary>
         /// Цвет TextBox при некорректном заполнении
@@ -30,7 +33,8 @@ namespace FlaskWurtzUI
         /// <summary>
         /// Текущие корректные параметры колбы
         /// </summary>
-        private FlaskWurthzParameters _currentParameters = new FlaskWurthzParameters();
+        private FlaskWurthzParameters _currentParameters = 
+            new FlaskWurthzParameters();
         public MainForm()
         {
             InitializeComponent();
@@ -41,8 +45,8 @@ namespace FlaskWurtzUI
        /// </summary>
         private void CheckingTextBoxesAsync()
         {
- 
-            _backgroundWorker.DoWork += (obj, ea) => ChekcingTextBoxes();
+            Control.CheckForIllegalCrossThreadCalls = false;
+            _backgroundWorker.DoWork += (obj, ea) => CheckingFormData();
             _backgroundWorker.RunWorkerAsync();
         }
         
@@ -51,9 +55,9 @@ namespace FlaskWurtzUI
         /// <pama>В случае неудачного парса выбрасывает исключение</pama>
         /// </summary>
         /// <param name="data">Текст, который требуется спарсить</param>
-        /// <param name="parameter">Текущий параметр</param>
+        /// <param name="parameterName">Текущий параметр</param>
         /// <returns></returns>
-        private double DoubleParse(string data, Parameter parameter)
+        private double DoubleParse(string data, ParameterName parameterName)
         {
             try
             {
@@ -62,7 +66,8 @@ namespace FlaskWurtzUI
             }
             catch
             {
-                throw new ArgumentException($"Parameter {parameter}  must contain only numbers\n");
+                throw new ArgumentException($"ParameterName {parameterName}" +
+                    $"  must contain only numbers\n");
             }
         }
         /// <summary>
@@ -72,84 +77,70 @@ namespace FlaskWurtzUI
         {
             try
             {
-                DependenciesLabel.Text = $"A ≥ { _currentParameters.NeckDiameter * 2} \n" +
-                    $"D ≤ {_currentParameters.FlaskDiameter + _currentParameters.NeckLenght}\n" +
-                    $"E  ≥ {_currentParameters.BendDiameter + 5}";
+                var flaskDiameter = _currentParameters.FlaskDiameter;
+                var neckLenght = _currentParameters.NeckLength;
+                var neckDiameter = _currentParameters.NeckDiameter;
+                var bendDiameter = _currentParameters.BendDiameter;
+                DependenciesLabel.Text =
+                    $"A ≥ {neckDiameter * 2} \n" +
+                    $"D ≤ {flaskDiameter + neckLenght}\n" +
+                    $"E  ≥ {bendDiameter + 5}";
             }
             catch
             {
                 DependenciesLabel.Text = null;
             }
         }
+
         /// <summary>
-        /// Метод для проверки TextBox на корректность введеных значения
+        /// Метод проверяет TextBox на корректность введенного значения
         /// </summary>
-        private void ChekcingTextBoxes()
+        /// <param name="textBox">TextBox, который трубется проверить</param>
+        /// <param name="parameterName">Название параметра, который
+        /// записывается в проверяемый TextBox</param>
+        private void CheckTexBox(TextBox textBox, 
+            ParameterName parameterName)
+        {
+            try
+            {
+                var value = DoubleParse(textBox.Text, parameterName);
+                var propertyInfo = typeof(FlaskWurthzParameters).
+                    GetProperty(parameterName.ToString());
+                propertyInfo.SetValue(_currentParameters, value);
+                textBox.BackColor = Color.White;
+            }
+            catch(Exception exception)
+            {
+                if (exception.InnerException == null)
+                {
+                    textBox.BackColor = _incorrectInputColor;
+                    ErrorsLabel.Text += exception.Message.ToString();
+                }
+                else
+                {
+                    textBox.BackColor = _incorrectInputColor;
+                    ErrorsLabel.Text += exception.InnerException.Message.
+                        ToString();
+                }
+            }
+        }
+        /// <summary>
+        /// Метод выполняется ассинхронно, сначала вызывает проверку все TextBox,
+        /// затем проверяет доступность кнопки "Построить" и обновляет зависимости
+        /// </summary>
+        private void CheckingFormData()
         {
             while(true)
             {  
                 Thread.Sleep(1000);
                 ErrorsLabel.Text = null;
                 ErrorsLabel.ForeColor = Color.Red;
-                
-                //TODO: Куча дублей.
-                try
-                {
-                    _currentParameters.FlaskDiameter = DoubleParse(FlastDiameterTextBox.Text, Parameter.FlaskDiameter);
-                    FlastDiameterTextBox.BackColor = Color.White;
-                    
-                }
-                catch (ArgumentException exception)
-                {
-                    
-                    FlastDiameterTextBox.BackColor = _incorrectInputColor;
-                    ErrorsLabel.Text += exception.Message.ToString();
-                }
-               
-                try
-                {
-                    _currentParameters.NeckLenght = DoubleParse(NeckLenghtTextBox.Text, Parameter.NeckLenght);
-                    NeckLenghtTextBox.BackColor = _correctInputColor;
-                }
-                catch (ArgumentException exception)
-                {
-                    NeckLenghtTextBox.BackColor = _incorrectInputColor;
-                    ErrorsLabel.Text += exception.Message.ToString();
-                }
-
-                try
-                {
-                    _currentParameters.BendDiameter = DoubleParse(BendDiameterTextBox.Text, Parameter.BendDiameter);
-                    BendDiameterTextBox.BackColor = _correctInputColor;
-                }
-                catch (ArgumentException exception)
-                {
-                    BendDiameterTextBox.BackColor = _incorrectInputColor;
-                    ErrorsLabel.Text += exception.Message;
-                }
-
-                try
-                {
-                    _currentParameters.BendLenght = DoubleParse(BendLenghtTextBox.Text, Parameter.BendLenght);
-                    BendLenghtTextBox.BackColor = _correctInputColor;
-                }
-                catch (ArgumentException exception)
-                {
-                    BendLenghtTextBox.BackColor = _incorrectInputColor;
-                    ErrorsLabel.Text += exception.Message;
-                }
-                
-                try
-                {
-                    _currentParameters.NeckDiameter = DoubleParse(NeckDiameterTextBox.Text, Parameter.NeckDiameter);
-                    NeckDiameterTextBox.BackColor = _correctInputColor;
-                }
-                catch (ArgumentException exception)
-                {
-                    NeckDiameterTextBox.BackColor = _incorrectInputColor;
-                    ErrorsLabel.Text += exception.Message;
-                }
-
+                //TODO: Куча дублей
+                CheckTexBox(FlastDiameterTextBox, ParameterName.FlaskDiameter);
+                CheckTexBox(BendDiameterTextBox, ParameterName.BendDiameter);
+                CheckTexBox(BendLenghtTextBox, ParameterName.BendLength);
+                CheckTexBox(NeckDiameterTextBox, ParameterName.NeckDiameter);
+                CheckTexBox(NeckLenghtTextBox, ParameterName.NeckLength);
                 BuildButton.Enabled = string.IsNullOrEmpty(ErrorsLabel.Text);
                 UpdateDependencies();
             }
@@ -158,7 +149,8 @@ namespace FlaskWurtzUI
         private void MainForm_Load(object sender, EventArgs e)
         {
             CheckingTextBoxesAsync();
-            DependenciesToolTip.SetToolTip(DependenciesButton, "A ≥ 2*E\nE ≥ C + 5\nD ≤ A+B");
+            DependenciesToolTip.SetToolTip(DependenciesButton, 
+                "A ≥ 2*E\nE ≥ C + 5\nD ≤ A+B");
         }
 
         private void PromtButton_Click(object sender, EventArgs e)

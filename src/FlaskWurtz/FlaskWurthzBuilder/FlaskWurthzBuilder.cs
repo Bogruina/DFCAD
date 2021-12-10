@@ -3,9 +3,12 @@ using Kompas6API5;
 using FlaskWurthzSDK;
 
 //TODO: Naming
-namespace FlaskWurthzBLL
+namespace FlaskWurthzKompasBuilder
 {
     //TODO: RSDN. XML.
+    /// <summary>
+    /// Класс хранит поля и методы для построения 3D модели Колбы Вюрца
+    /// </summary>
     public class FlaskWurthzBuilder
     {
         /// <summary>
@@ -23,8 +26,10 @@ namespace FlaskWurthzBLL
             _wrapper.GetNewPart();
             BuildFlask(parameters.FlaskDiameter);
             //TODO: RSDN. Длина строк
-            BuildNeck(parameters.NeckLenght, parameters.NeckDiameter, parameters.FlaskDiameter);
-            BuildBend(parameters.BendLenght, parameters.BendDiameter, parameters.FlaskDiameter, parameters.NeckLenght);
+            BuildNeck(parameters.NeckLength, parameters.NeckDiameter,
+                parameters.FlaskDiameter);
+            BuildBend(parameters.BendLength, parameters.BendDiameter, 
+                parameters.FlaskDiameter, parameters.NeckLength);
 
         }
 
@@ -36,11 +41,12 @@ namespace FlaskWurthzBLL
         {
             var sketchDef = CreateSketch(Obj3dType.o3d_planeXOZ);
             var doc2d = (ksDocument2D)sketchDef.BeginEdit();
-            doc2d.ksArcByPoint(0, 0, flaskDiameter / 2, 0, flaskDiameter / 2, 0, -flaskDiameter / 2, 1,1);
+            doc2d.ksArcByPoint(0, 0, flaskDiameter / 2, 0, 
+                flaskDiameter / 2, 0, -flaskDiameter / 2, 1,1);
             doc2d.ksLineSeg(0, -20, 0, 20, 3);
             sketchDef.EndEdit();
 
-            CreateRotation(sketchDef, flaskDiameter / 2, side:true);
+            CreateRotation(sketchDef);
         }
 
         /// <summary>
@@ -48,25 +54,28 @@ namespace FlaskWurthzBLL
         /// </summary>
         /// <param name="neckLenght">Длина горла колбы</param>
         /// <param name="neckDiameter">Диаметр горла колбы</param>
-        /// <param name="flaskDiameter"></param>
-        private void BuildNeck(double neckLenght, double neckDiameter, double flaskDiameter)
+        /// <param name="flaskDiameter">Диаметр колбы</param>
+        private void BuildNeck(double neckLenght, double neckDiameter,
+            double flaskDiameter)
         {
             var sketchDef = CreateSketch(Obj3dType.o3d_planeXOY);
             var doc2d = (ksDocument2D)sketchDef.BeginEdit();
             doc2d.ksCircle(0,0,neckDiameter/2,1);
             sketchDef.EndEdit();
 
-            CreateExtrusion(sketchDef, neckLenght+ flaskDiameter, side: true);
+            CreateExtrusion(sketchDef, neckLenght+ flaskDiameter,
+                side: true);
         }
 
         /// <summary>
         /// Метод для построения отвода колбы
         /// </summary>
         /// <param name="bendLenght">Длина отвода</param>
-        /// <param name="bendDiameter">Диаметер отвода</param>
-        /// <param name="flaskDiameter"></param>
-        /// <param name="neckLenght"></param>
-        private void BuildBend(double bendLenght, double bendDiameter, double flaskDiameter, double neckLenght)
+        /// <param name="bendDiameter">Диаметр отвода</param>
+        /// <param name="flaskDiameter">Диаметр колбы</param>
+        /// <param name="neckLenght">Длина горла </param>
+        private void BuildBend(double bendLenght, double bendDiameter, 
+            double flaskDiameter, double neckLenght)
         {
             var sketchDef = CreateSketch(Obj3dType.o3d_planeYOZ);
             var doc2d = (ksDocument2D)sketchDef.BeginEdit();
@@ -80,15 +89,15 @@ namespace FlaskWurthzBLL
         /// <summary>
         /// Метод для создания элемента вращения
         /// </summary>
-        /// <param name="sketchDef">Эскиз по которому будет построен элемент вращения</param>
-        /// <param name="radius">Радиус элемента вращения</param>
-        /// <param name="side"></param>
-        private void CreateRotation(ksSketchDefinition sketchDef, double radius,
-            bool side = true)
+        /// <param name="sketchDef">Эскиз по которому будет построен 
+        /// элемент вращения</param>
+        private void CreateRotation(ksSketchDefinition sketchDef)
         {
             ksObj3dTypeEnum type = ksObj3dTypeEnum.o3d_bossRotated;
-            var rotationEntity = (ksEntity)_wrapper.Part.NewEntity((short)type);
-            var rotationDef = (ksBossRotatedDefinition)rotationEntity.GetDefinition();
+            var rotationEntity = (ksEntity)_wrapper.Part.
+                NewEntity((short)type);
+            var rotationDef = (ksBossRotatedDefinition)
+                rotationEntity.GetDefinition();
 
             rotationDef.SetSideParam(true, 360);
             rotationDef.SetSketch(sketchDef);
@@ -99,35 +108,44 @@ namespace FlaskWurthzBLL
         /// <summary>
         /// Метод для выполнения выдавливания
         /// </summary>
-        /// <param name="sketchDef">Эскиз по которому будет производиться выдавливание</param>
+        /// <param name="sketchDef">Эскиз по которому будет
+        /// производиться выдавливание</param>
         /// <param name="lenght">Расстояние выдавливания</param>
-        /// <param name="side"></param>
-        private void CreateExtrusion(ksSketchDefinition sketchDef, double lenght,
-            bool side = true, bool thin = true)
+        /// <param name="side">Направление выдавливания</param>
+        private void CreateExtrusion(ksSketchDefinition sketchDef, 
+            double lenght, bool side = true, bool thin = true)
         {
             ksObj3dTypeEnum type = ksObj3dTypeEnum.o3d_bossExtrusion;
-            var extrusionEntity = (ksEntity)_wrapper.Part.NewEntity((short)type);
-            var extrusionDef = (ksBossExtrusionDefinition)extrusionEntity.GetDefinition();
+            var extrusionEntity = (ksEntity)_wrapper.Part.
+                NewEntity((short)type);
+            var extrusionDef = (ksBossExtrusionDefinition)
+                extrusionEntity.GetDefinition();
            
-            extrusionDef.SetSideParam(side, (short)End_Type.etBlind,lenght);
+            extrusionDef.SetSideParam(side, 
+                (short)End_Type.etBlind,lenght);
             extrusionDef.directionType = side ?
-                (short)Direction_Type.dtNormal : (short)Direction_Type.dtReverse;
-            extrusionDef.SetThinParam(thin, (short)Direction_Type.dtNormal, 0.5, 1);
+                (short)Direction_Type.dtNormal : 
+                (short)Direction_Type.dtReverse;
+            extrusionDef.SetThinParam(thin, 
+                (short)Direction_Type.dtNormal, 0.5, 1);
             extrusionDef.SetSketch(sketchDef);
             
             extrusionEntity.Create();
         }
 
         /// <summary>
-        /// Метод для создания эскиза
+        /// Метод для создания эскиза на выбранной плоскости
         /// </summary>
         /// <param name="planeType">Плоскость эскиза</param>
         /// <returns></returns>
         private ksSketchDefinition CreateSketch(Obj3dType planeType)
         {
-            var plane = (ksEntity)_wrapper.Part.GetDefaultEntity((short)planeType);
-            var sketch = (ksEntity)_wrapper.Part.NewEntity((short)Obj3dType.o3d_sketch);
-            ksSketchDefinition ksSketch = (ksSketchDefinition)sketch.GetDefinition();
+            var plane = (ksEntity)_wrapper.Part.
+                GetDefaultEntity((short)planeType);
+            var sketch = (ksEntity)_wrapper.Part.
+                NewEntity((short)Obj3dType.o3d_sketch);
+            ksSketchDefinition ksSketch = (ksSketchDefinition)sketch.
+                GetDefinition();
 
             ksSketch.SetPlane(plane);
             sketch.Create();

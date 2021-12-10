@@ -2,12 +2,15 @@
 using System.Runtime.InteropServices;
 using Kompas6Constants3D;
 using Kompas6API5;
-using FlaskWurthzBLL.Service;
+using FlaskWurthzKompasBuilder.Service;
 
-namespace FlaskWurthzBLL
+namespace FlaskWurthzKompasBuilder
 {
     //TODO: RSDN. Явное написание модификатора доступа.
-    class KompasWrapper
+    /// <summary>
+    /// Класс для взаимодействия с Kompas 3D
+    /// </summary>
+    internal class KompasWrapper
     {
         /// <summary>
         /// Объект интерфейса KompasObject для взимодействия с Kompas 3D

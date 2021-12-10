@@ -12,7 +12,7 @@ namespace FlaskWurthzSDK
         /// <summary>
         /// Поле, хранящее параметр длины отвода колбы
         /// </summary>
-        private double _bendLenght;
+        private double _bendLength;
 
         /// <summary>
         /// Поле, хранящее параметр диаметра колбы
@@ -27,7 +27,7 @@ namespace FlaskWurthzSDK
         /// <summary>
         /// Поле, хранящее параметр длины горла колбы
         /// </summary>
-        private double _neckLenght;
+        private double _neckLength;
        
         /// <summary>
         /// Свойство обрабатывающее поле диаметра отвода колбы,
@@ -43,7 +43,8 @@ namespace FlaskWurthzSDK
                 
                 const double maxValue = 30;
                
-                Validator.AssertRangeParameters(minValue, maxValue, value, Parameter.BendDiameter);
+                Validator.AssertRangeParameters(minValue, maxValue, 
+                    value, ParameterName.BendDiameter);
                 _bendDiameter = value;
             }
         }
@@ -52,16 +53,18 @@ namespace FlaskWurthzSDK
         /// Свойство обрабатывающее поле длины отвода колбы,
         /// Содержит валидацию доспустимых значений
         /// </summary>
-        public double BendLenght
+        public double BendLength
         {
-            get => _bendLenght;
+            get => _bendLength;
             
             set 
             {
                 const double minValue = 30;
                
-                Validator.AssertRangeParameters(minValue, FlaskDiameter+NeckLenght, value, Parameter.BendLenght);
-                _bendLenght = value;
+                Validator.AssertRangeParameters(minValue, 
+                    FlaskDiameter+NeckLength, value, 
+                    ParameterName.BendLength);
+                _bendLength = value;
             }
         }
 
@@ -77,7 +80,8 @@ namespace FlaskWurthzSDK
             {
                 const double maxValue = 170;
                
-                Validator.AssertRangeParameters(2*NeckDiameter, maxValue, value, Parameter.FlaskDiameter);
+                Validator.AssertRangeParameters(2*NeckDiameter,
+                    maxValue, value, ParameterName.FlaskDiameter);
                 _flaskDiameter = value;
             }
         }
@@ -93,7 +97,8 @@ namespace FlaskWurthzSDK
             {
                 const double maxValue = 85;
                 
-                Validator.AssertRangeParameters(BendDiameter + 5.0, maxValue, value, Parameter.NeckDiameter);
+                Validator.AssertRangeParameters(BendDiameter + 5.0,
+                    maxValue, value, ParameterName.NeckDiameter);
                 _neckDiameter = value;
             }
         }
@@ -102,17 +107,18 @@ namespace FlaskWurthzSDK
         /// Свойство обрабатывающее поле длины горла колбы,
         /// Содержит валидацию доспустимых значений
         /// </summary>
-        public double NeckLenght
+        public double NeckLength
         {
-            get => _neckLenght;
+            get => _neckLength;
             
             set
             {
                 const double minValue = 40;
                 const double maxValue = 200;
                 
-                Validator.AssertRangeParameters(minValue, maxValue, value, Parameter.NeckLenght);
-                _neckLenght = value;
+                Validator.AssertRangeParameters(minValue, 
+                    maxValue, value, ParameterName.NeckLength);
+                _neckLength = value;
             }
         }
     }
