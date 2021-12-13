@@ -14,7 +14,10 @@ namespace FlaskWurthzSDK
         /// Поле, хранящее параметр длины отвода колбы
         /// </summary>
         private double _bendLength;
-
+        /// <summary>
+        /// Поле, хранящее параметр количества отводов колбы
+        /// </summary>
+        private double _numberBends;
         /// <summary>
         /// Поле, хранящее параметр диаметра колбы
         /// </summary>
@@ -111,6 +114,19 @@ namespace FlaskWurthzSDK
                     ParameterName.NeckLength);
             }
         }
+
+        public double NumberBends
+        {
+            get => _numberBends;
+
+            set
+            {
+                const int minValue = 1;
+                const int maxValue = 4;
+                SetValue(ref _numberBends, value,minValue,
+                    maxValue,ParameterName.NumberBends);
+            }
+        }
         /// <summary>
         /// Устанавливает значение в требуемое свойство
         /// </summary>
@@ -122,7 +138,8 @@ namespace FlaskWurthzSDK
         private void SetValue(ref double property, double value,
             double minValue, double maxValue, ParameterName parameter)
         {
-            Validator.AssertRangeParameters(minValue, maxValue, value, parameter);
+            Validator.AssertRangeParameters(minValue, maxValue, 
+                value, parameter);
             property = value;
         }
     }

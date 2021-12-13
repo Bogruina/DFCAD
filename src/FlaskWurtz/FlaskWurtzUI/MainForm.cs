@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using FlaskWurthzSDK;
@@ -26,11 +27,6 @@ namespace FlaskWurtzUI
         private readonly Color _incorrectInputColor = Color.LightSalmon;
 
         /// <summary>
-        /// Цвет TextBox при корректном заполнении
-        /// </summary>
-        private readonly Color _correctInputColor = Color.White;
-
-        /// <summary>
         /// Текущие корректные параметры колбы
         /// </summary>
         private FlaskWurthzParameters _currentParameters =
@@ -46,7 +42,8 @@ namespace FlaskWurtzUI
         private void CheckingTextBoxesAsync()
         {
             Control.CheckForIllegalCrossThreadCalls = false;
-            _backgroundWorker.DoWork += (obj, ea) => CheckingFormData();
+            _backgroundWorker.DoWork += (obj, ea) =>
+                CheckingFormData();
             _backgroundWorker.RunWorkerAsync();
         }
 
@@ -144,7 +141,58 @@ namespace FlaskWurtzUI
                 UpdateDependencies();
             }
         }
+        /// <summary>
+        /// Метод берет массив всех RadioButton и выясняет какой
+        /// из них отмечен пользователем
+        /// </summary>
+        /// <returns>Количество отводов колбы</returns>
+        private int CheckRadioButton()
+        {
+            RadioButton radioBtn = ParametersGroupbox.Controls
+                .OfType<RadioButton>().FirstOrDefault(x => x.Checked);
+            int number = 0;
+            if (radioBtn != null)
+            {
+                switch (radioBtn.Name)
+                {
+                    case "OneBendRadioButton":
+                    {
+                        number = 1;
+                        break;
+                    }
 
+                    case "TwoBendsRadioButton":
+                    {
+                        number = 2;
+                        break;
+                    }
+
+                    case "ThreeBendsRadioButton":
+                    {
+                        number = 3;
+                        break;
+                    }
+
+                    case "FourBendsRadioButton":
+                    {
+                        number = 4;
+                        break;
+                    }
+                }
+
+            }
+
+
+
+            return number;
+        }
+
+        /// <summary>
+        /// Обраточтик события загрузки формы, запускает ассинхронный
+        /// метод проверки, также устанавливает подсказку
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MainForm_Load(object sender, EventArgs e)
         {
             CheckingTextBoxesAsync();
@@ -152,14 +200,30 @@ namespace FlaskWurtzUI
                 "A ≥ 2*E\nE ≥ C + 5\nD ≤ A+B");
         }
 
+        /// <summary>
+        /// Обработчик события клик на кнопку prompt, создает объект PrompForm
+        /// и выводит форму пользователю
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void PromtButton_Click(object sender, EventArgs e)
         {
             var promptForm = new PromptForm();
             promptForm.Show();
         }
 
+        /// <summary>
+        /// Обработчик события клик на кнопку Build,
+        /// устанавливает количество отводов и
+        /// запускает процесс построения 3D модели
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BuildButton_Click(object sender, EventArgs e)
         {
+            var number = CheckRadioButton();
+            _currentParameters.NumberBends = number;
+            MessageBox.Show(number.ToString());
             try
             {
                 var builder = new FlaskWurthzBuilder();
@@ -171,5 +235,6 @@ namespace FlaskWurtzUI
                 MessageBox.Show(ex.Message);
             }
         }
+
     }
 }

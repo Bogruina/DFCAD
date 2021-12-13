@@ -28,6 +28,10 @@
         /// <summary>
         /// Длина горла
         /// </summary>
-        NeckLength
+        NeckLength,
+        /// <summary>
+        /// Количество отводов
+        /// </summary>
+        NumberBends
     }
 }

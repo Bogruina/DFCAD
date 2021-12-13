@@ -25,12 +25,12 @@ namespace FlaskWurtzUnitTests
 
         [TestCase(10, 1, 20, ParameterName.FlaskDiameter,
             TestName = "Value in the range")]
-        public void TestValidator_ValidValue(double invalidValue,
+        public void TestValidator_ValidValue(double validValue,
             double minValue, double maxValue, ParameterName parameter)
         {
 
             Assert.DoesNotThrow(() => Validator.AssertRangeParameters(minValue, maxValue,
-                invalidValue, parameter), $"value out of range");
+                validValue, parameter), $"value out of range");
         }
     }
 }

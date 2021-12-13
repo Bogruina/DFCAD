@@ -16,6 +16,15 @@ namespace FlaskWurthzKompasBuilder
         private KompasWrapper _wrapper;
 
         /// <summary>
+        /// Стиль линии: основная
+        /// </summary>
+        private const int MainLineStyle = 1;
+        /// <summary>
+        /// Стиль линии: вспомогательная
+        /// </summary>
+        private const int AuxiliaryLineStyle = 3;
+
+        /// <summary>
         /// Метод для постоения модели Колбы Вюрца
         /// </summary>
         /// <param name="parameters">Параметры колбы</param>
@@ -27,7 +36,7 @@ namespace FlaskWurthzKompasBuilder
             BuildNeck(parameters.NeckLength, parameters.NeckDiameter,
                 parameters.FlaskDiameter);
             BuildBend(parameters.BendLength, parameters.BendDiameter,
-                parameters.FlaskDiameter, parameters.NeckLength);
+                parameters.FlaskDiameter, parameters.NeckLength,parameters.NumberBends);
 
         }
 
@@ -39,9 +48,20 @@ namespace FlaskWurthzKompasBuilder
         {
             var sketchDef = CreateSketch(Obj3dType.o3d_planeXOZ);
             var doc2d = (ksDocument2D)sketchDef.BeginEdit();
-            doc2d.ksArcByPoint(0, 0, flaskDiameter / 2, 0,
-                flaskDiameter / 2, 0, -flaskDiameter / 2, 1, 1);
-            doc2d.ksLineSeg(0, -20, 0, 20, 3);
+            // Параметры дуги
+            var radArc = flaskDiameter / 2;
+            var arcCordСenter = new double[] {0, 0};
+            var arcCord = new double[] {0, flaskDiameter / 2, 0, -flaskDiameter / 2};
+            short direction = 1;
+            // Построение дуги
+            doc2d.ksArcByPoint(arcCordСenter[0], arcCordСenter[1], radArc, arcCord[0],
+                arcCord[1], arcCord[2], arcCord[3], direction, MainLineStyle);
+            // Параметры вспомогательного отрезка
+            var auxiliaryLineX = new double[] {0, 0};
+            var auxiliaryLineY = new double[] {-20, 20};
+            // Построение вспомогательного отрезка
+            doc2d.ksLineSeg(auxiliaryLineX[0], auxiliaryLineY[0],
+                auxiliaryLineX[1], auxiliaryLineY[1], AuxiliaryLineStyle);
             sketchDef.EndEdit();
 
             CreateRotation(sketchDef);
@@ -56,21 +76,30 @@ namespace FlaskWurthzKompasBuilder
         private void BuildNeck(double neckLenght, double neckDiameter,
             double flaskDiameter)
         {
-            var sketchDef = CreateSketch(Obj3dType.o3d_planeXOY);
-            var doc2d = (ksDocument2D)sketchDef.BeginEdit();
-            doc2d.ksCircle(0, 0, neckDiameter / 2, 1);
-            sketchDef.EndEdit();
-
-            CreateExtrusion(sketchDef, neckLenght + flaskDiameter,
-                side: true);
-
+            //Параметры окружности для выдавливания горла
+            var circleCenter = new double[] {0, 0};
+            var circleRad = neckDiameter / 2;
+            //Создание эскиза и построение в нем окружности
+            var sketchDef = SketchAndDrawCircle(Obj3dType.o3d_planeXOY, 
+                circleCenter[0], circleCenter[1], circleRad);
+            //Параметры выдавливания
+            var lengthExtrusion = neckLenght + flaskDiameter;
+            CreateExtrusion(sketchDef, lengthExtrusion, side: true);
+          
+            //Создание отложенной плоскости
             var plane = CreateOffsetPlane(flaskDiameter + neckLenght,
                 Obj3dType.o3d_planeXOY);
             var sketchOffset = CreateSketch(offsetPlane: plane);
-            doc2d = (ksDocument2D)sketchOffset.BeginEdit();
-            doc2d.ksCircle(0, 0, neckDiameter / 2, 1);
+            var doc2d = (ksDocument2D)sketchOffset.BeginEdit();
+            //Параметры окружности для построения горлышка
+            circleCenter = new double[] {0, 0};
+            circleRad = neckDiameter / 2;
+            doc2d.ksCircle(circleCenter[0], circleCenter[1], circleRad, 
+                MainLineStyle);
             sketchOffset.EndEdit();
-            CreateExtrusion(sketchOffset, 10, angle: 15);
+            //Параметры выдавливания
+            lengthExtrusion = neckLenght / 10;
+            CreateExtrusion(sketchOffset, lengthExtrusion, angle: 15);
         }
 
         /// <summary>
@@ -81,15 +110,56 @@ namespace FlaskWurthzKompasBuilder
         /// <param name="flaskDiameter">Диаметр колбы</param>
         /// <param name="neckLenght">Длина горла </param>
         private void BuildBend(double bendLenght, double bendDiameter,
-            double flaskDiameter, double neckLenght)
+            double flaskDiameter, double neckLenght, double numberBends)
         {
-            var sketchDef = CreateSketch(Obj3dType.o3d_planeYOZ);
+            //Параметры окружности для выдавливания отвода
+            var cirleCenter = new double[] {(neckLenght / 2) + flaskDiameter / 2, 0};
+            var circleRad = bendDiameter / 2;
+            //Создание эскиза и построение в нем окружности
+            var sketchDef = SketchAndDrawCircle(Obj3dType.o3d_planeYOZ,
+                cirleCenter[0], cirleCenter[1], circleRad);
+            //Параметры выдавливания
+            var lengthExtrusion = bendLenght;
+            CreateExtrusion(sketchDef, lengthExtrusion, side: true);
+
+            if (numberBends > 1)
+            {
+                CreateExtrusion(sketchDef, lengthExtrusion, side: false);
+            }
+
+            if (!(numberBends > 2)) return;
+            //Параметры окружности для выдавливания отвода
+            cirleCenter = new double[] {0, (neckLenght / 2) + flaskDiameter / 2};
+            circleRad = bendDiameter / 2;
+            //Создание эскиза и построение в нем окружности
+            sketchDef = SketchAndDrawCircle(Obj3dType.o3d_planeXOZ,
+                cirleCenter[0], cirleCenter[1], circleRad);
+            CreateExtrusion(sketchDef, lengthExtrusion, side: true);
+            if (numberBends > 3)
+            {
+                CreateExtrusion(sketchDef, lengthExtrusion, side: false);
+            }
+        }
+
+        /// <summary>
+        /// Метод строит эскиз на заданной плоскости и рисует в нем
+        /// окружность с заданным центром и радиусом
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="xc"></param>
+        /// <param name="yc"></param>
+        /// <param name="radiusCircle"></param>
+        /// <returns></returns>
+        private ksSketchDefinition SketchAndDrawCircle(Obj3dType obj, 
+            double xc, double yc, double radiusCircle)
+        {
+            var sketchDef = CreateSketch(obj);
             var doc2d = (ksDocument2D)sketchDef.BeginEdit();
-            var centerCircle = (neckLenght / 2) + flaskDiameter / 2;
-            doc2d.ksCircle(-centerCircle, 0, bendDiameter / 2, 1);
+            doc2d.ksCircle(-xc, -yc, radiusCircle, MainLineStyle);
             sketchDef.EndEdit();
 
-            CreateExtrusion(sketchDef, bendLenght, side: true);
+            return sketchDef;
+
         }
 
         /// <summary>
@@ -104,8 +174,8 @@ namespace FlaskWurthzKompasBuilder
                 NewEntity((short)type);
             var rotationDef = (ksBossRotatedDefinition)
                 rotationEntity.GetDefinition();
-
-            rotationDef.SetSideParam(true, 360);
+            var angleRotation = 360;
+            rotationDef.SetSideParam(true, angleRotation);
             rotationDef.SetSketch(sketchDef);
 
             rotationEntity.Create();
@@ -138,6 +208,7 @@ namespace FlaskWurthzKompasBuilder
             extrusionEntity.Create();
         }
 
+
         /// <summary>
         /// Метод для создания эскиза на выбранной плоскости
         /// </summary>
@@ -167,6 +238,13 @@ namespace FlaskWurthzKompasBuilder
             return ksSketch;
         }
 
+        /// <summary>
+        /// Метод строит отложенную плоскость от
+        /// одной из базовых с определенным отступом
+        /// </summary>
+        /// <param name="offset">Отступ отложенной плоскости</param>
+        /// <param name="type">Одна из трех базовых плоскостей</param>
+        /// <returns></returns>
         private ksPlaneOffsetDefinition CreateOffsetPlane(double offset, Obj3dType type)
         {
             var plane = (ksEntity)_wrapper.Part.GetDefaultEntity((short)type);

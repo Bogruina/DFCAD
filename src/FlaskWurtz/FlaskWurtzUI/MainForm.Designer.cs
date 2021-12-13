@@ -51,6 +51,11 @@ namespace FlaskWurtzUI
             this.DependenciesLabel = new System.Windows.Forms.Label();
             this.ErrorsLabel = new System.Windows.Forms.Label();
             this.ParametersGroupbox = new System.Windows.Forms.GroupBox();
+            this.FourBendsRadioButton = new System.Windows.Forms.RadioButton();
+            this.ThreeBendsRadioButton = new System.Windows.Forms.RadioButton();
+            this.TwoBendsRadioButton = new System.Windows.Forms.RadioButton();
+            this.OneBendRadioButton = new System.Windows.Forms.RadioButton();
+            this.NumberBends = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.DependenciesButton = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -154,7 +159,7 @@ namespace FlaskWurtzUI
             // 
             this.BuildButton.Enabled = false;
             this.BuildButton.FlatAppearance.BorderSize = 0;
-            this.BuildButton.Location = new System.Drawing.Point(281, 293);
+            this.BuildButton.Location = new System.Drawing.Point(297, 313);
             this.BuildButton.Name = "BuildButton";
             this.BuildButton.Size = new System.Drawing.Size(75, 23);
             this.BuildButton.TabIndex = 15;
@@ -171,7 +176,7 @@ namespace FlaskWurtzUI
             this.PromtButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.PromtButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.PromtButton.Image = ((System.Drawing.Image)(resources.GetObject("PromtButton.Image")));
-            this.PromtButton.Location = new System.Drawing.Point(12, 291);
+            this.PromtButton.Location = new System.Drawing.Point(12, 311);
             this.PromtButton.Name = "PromtButton";
             this.PromtButton.Size = new System.Drawing.Size(25, 25);
             this.PromtButton.TabIndex = 17;
@@ -240,6 +245,11 @@ namespace FlaskWurtzUI
             // 
             // ParametersGroupbox
             // 
+            this.ParametersGroupbox.Controls.Add(this.FourBendsRadioButton);
+            this.ParametersGroupbox.Controls.Add(this.ThreeBendsRadioButton);
+            this.ParametersGroupbox.Controls.Add(this.TwoBendsRadioButton);
+            this.ParametersGroupbox.Controls.Add(this.OneBendRadioButton);
+            this.ParametersGroupbox.Controls.Add(this.NumberBends);
             this.ParametersGroupbox.Controls.Add(this.label1);
             this.ParametersGroupbox.Controls.Add(this.label2);
             this.ParametersGroupbox.Controls.Add(this.label4);
@@ -258,18 +268,69 @@ namespace FlaskWurtzUI
             this.ParametersGroupbox.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.ParametersGroupbox.Location = new System.Drawing.Point(12, 12);
             this.ParametersGroupbox.Name = "ParametersGroupbox";
-            this.ParametersGroupbox.Size = new System.Drawing.Size(241, 165);
+            this.ParametersGroupbox.Size = new System.Drawing.Size(259, 185);
             this.ParametersGroupbox.TabIndex = 27;
             this.ParametersGroupbox.TabStop = false;
             this.ParametersGroupbox.Text = "Parameters";
+            // 
+            // FourBendsRadioButton
+            // 
+            this.FourBendsRadioButton.AutoSize = true;
+            this.FourBendsRadioButton.Location = new System.Drawing.Point(224, 159);
+            this.FourBendsRadioButton.Name = "FourBendsRadioButton";
+            this.FourBendsRadioButton.Size = new System.Drawing.Size(31, 19);
+            this.FourBendsRadioButton.TabIndex = 27;
+            this.FourBendsRadioButton.Text = "4";
+            this.FourBendsRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // ThreeBendsRadioButton
+            // 
+            this.ThreeBendsRadioButton.AutoSize = true;
+            this.ThreeBendsRadioButton.Location = new System.Drawing.Point(187, 159);
+            this.ThreeBendsRadioButton.Name = "ThreeBendsRadioButton";
+            this.ThreeBendsRadioButton.Size = new System.Drawing.Size(31, 19);
+            this.ThreeBendsRadioButton.TabIndex = 26;
+            this.ThreeBendsRadioButton.Text = "3";
+            this.ThreeBendsRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // TwoBendsRadioButton
+            // 
+            this.TwoBendsRadioButton.AutoSize = true;
+            this.TwoBendsRadioButton.Location = new System.Drawing.Point(150, 159);
+            this.TwoBendsRadioButton.Name = "TwoBendsRadioButton";
+            this.TwoBendsRadioButton.Size = new System.Drawing.Size(31, 19);
+            this.TwoBendsRadioButton.TabIndex = 25;
+            this.TwoBendsRadioButton.Text = "2";
+            this.TwoBendsRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // OneBendRadioButton
+            // 
+            this.OneBendRadioButton.AutoSize = true;
+            this.OneBendRadioButton.Checked = true;
+            this.OneBendRadioButton.Location = new System.Drawing.Point(113, 159);
+            this.OneBendRadioButton.Name = "OneBendRadioButton";
+            this.OneBendRadioButton.Size = new System.Drawing.Size(31, 19);
+            this.OneBendRadioButton.TabIndex = 24;
+            this.OneBendRadioButton.TabStop = true;
+            this.OneBendRadioButton.Text = "1";
+            this.OneBendRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // NumberBends
+            // 
+            this.NumberBends.AutoSize = true;
+            this.NumberBends.Location = new System.Drawing.Point(6, 161);
+            this.NumberBends.Name = "NumberBends";
+            this.NumberBends.Size = new System.Drawing.Size(100, 15);
+            this.NumberBends.TabIndex = 23;
+            this.NumberBends.Text = "Number of bends";
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.DependenciesButton);
             this.groupBox1.Controls.Add(this.DependenciesLabel);
-            this.groupBox1.Location = new System.Drawing.Point(259, 12);
+            this.groupBox1.Location = new System.Drawing.Point(277, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(97, 165);
+            this.groupBox1.Size = new System.Drawing.Size(95, 185);
             this.groupBox1.TabIndex = 28;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Current Dependencies";
@@ -283,7 +344,7 @@ namespace FlaskWurtzUI
             this.DependenciesButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.DependenciesButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.DependenciesButton.Image = ((System.Drawing.Image)(resources.GetObject("DependenciesButton.Image")));
-            this.DependenciesButton.Location = new System.Drawing.Point(66, 130);
+            this.DependenciesButton.Location = new System.Drawing.Point(66, 154);
             this.DependenciesButton.Name = "DependenciesButton";
             this.DependenciesButton.Size = new System.Drawing.Size(25, 25);
             this.DependenciesButton.TabIndex = 29;
@@ -294,9 +355,9 @@ namespace FlaskWurtzUI
             // 
             this.groupBox2.Controls.Add(this.ErrorsLabel);
             this.groupBox2.ImeMode = System.Windows.Forms.ImeMode.Off;
-            this.groupBox2.Location = new System.Drawing.Point(12, 183);
+            this.groupBox2.Location = new System.Drawing.Point(12, 203);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(344, 102);
+            this.groupBox2.Size = new System.Drawing.Size(360, 102);
             this.groupBox2.TabIndex = 29;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Errors";
@@ -311,14 +372,14 @@ namespace FlaskWurtzUI
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(368, 323);
+            this.ClientSize = new System.Drawing.Size(384, 348);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.ParametersGroupbox);
             this.Controls.Add(this.PromtButton);
             this.Controls.Add(this.BuildButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-            this.MaximumSize = new System.Drawing.Size(384, 362);
+            this.MaximumSize = new System.Drawing.Size(400, 400);
             this.MinimumSize = new System.Drawing.Size(384, 362);
             this.Name = "MainForm";
             this.Text = "Flask Wurtz";
@@ -359,5 +420,10 @@ namespace FlaskWurtzUI
         private System.Windows.Forms.Button DependenciesButton;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.ToolTip DependenciesToolTip;
+        private System.Windows.Forms.RadioButton ThreeBendsRadioButton;
+        private System.Windows.Forms.RadioButton TwoBendsRadioButton;
+        private System.Windows.Forms.RadioButton OneBendRadioButton;
+        private System.Windows.Forms.Label NumberBends;
+        private System.Windows.Forms.RadioButton FourBendsRadioButton;
     }
 }
