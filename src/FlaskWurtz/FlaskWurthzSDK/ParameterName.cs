@@ -1,5 +1,4 @@
-﻿
-namespace FlaskWurthzSDK
+﻿namespace FlaskWurthzSDK
 {
     /// <summary>
     /// Перечисление названий параметров Колбы Вюрца
@@ -10,7 +9,7 @@ namespace FlaskWurthzSDK
         /// Диаметр отвода
         /// </summary>
         BendDiameter,
-        
+
         /// <summary>
         /// Длина отвода
         /// </summary>

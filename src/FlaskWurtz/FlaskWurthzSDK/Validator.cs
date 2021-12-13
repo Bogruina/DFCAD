@@ -18,12 +18,12 @@ namespace FlaskWurthzSDK
         /// <param name="currentValue">Текущее значение</param>
         /// <param name="parameterName">Проверяемый параметр</param>
         public static void AssertRangeParameters(double minValue,
-            double maxValue,  double currentValue, ParameterName parameterName)
+            double maxValue, double currentValue, ParameterName parameterName)
         {
             if (currentValue < minValue || currentValue > maxValue)
             {
                 throw new ArgumentException($"Value {parameterName} " +
-                    $"is out of range {minValue} - {maxValue}\n") ;
+                                            $"is out of range {minValue} - {maxValue}\n");
             }
         }
     }

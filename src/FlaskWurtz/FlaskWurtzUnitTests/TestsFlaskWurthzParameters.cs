@@ -10,19 +10,19 @@ namespace FlaskWurtzUnitTests
     [TestFixture]
     public class TestsFlaskWurthzParameters
     {
-        private FlaskWurthzParameters DefaultParameters => 
+        private FlaskWurthzParameters DefaultParameters =>
             new FlaskWurthzParameters()
-        {
-            FlaskDiameter = 45,
-            BendDiameter = 5,
-            BendLength = 35,
-            NeckDiameter = 10,
-            NeckLength = 40
-        };
+            {
+                FlaskDiameter = 45,
+                BendDiameter = 5,
+                BendLength = 35,
+                NeckDiameter = 10,
+                NeckLength = 40
+            };
 
         #region [Positive tests]
 
-        [TestCase (45,TestName = "Flask Diameter getter positive test")]
+        [TestCase(45, TestName = "Flask Diameter getter positive test")]
         public void TestFlaskDiameter_CorrectSetValue(double correctValue)
         {
             var flask = DefaultParameters;
@@ -92,11 +92,11 @@ namespace FlaskWurtzUnitTests
                 $"returns wrong value");
         }
         #endregion
-        
+
         #region [Negative tests]
 
-        [TestCase (250, TestName = "Flask diameter value less than range")]
-        [TestCase (1, TestName = "Flask diameter value over than range")]
+        [TestCase(250, TestName = "Flask diameter value less than range")]
+        [TestCase(1, TestName = "Flask diameter value over than range")]
         public void TestFlaskDiameter_InvalidSetValue(double invalidValue)
         {
             var flask = DefaultParameters;

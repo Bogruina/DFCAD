@@ -19,7 +19,7 @@ namespace FlaskWurtzUI
         /// </summary>
         private BackgroundWorker _backgroundWorker =
             new BackgroundWorker();
-        
+
         /// <summary>
         /// Цвет TextBox при некорректном заполнении
         /// </summary>
@@ -29,27 +29,27 @@ namespace FlaskWurtzUI
         /// Цвет TextBox при корректном заполнении
         /// </summary>
         private readonly Color _correctInputColor = Color.White;
-       
+
         /// <summary>
         /// Текущие корректные параметры колбы
         /// </summary>
-        private FlaskWurthzParameters _currentParameters = 
+        private FlaskWurthzParameters _currentParameters =
             new FlaskWurthzParameters();
         public MainForm()
         {
             InitializeComponent();
-            
+
         }
-       /// <summary>
-       /// Запускает проверку введенных параметров
-       /// </summary>
+        /// <summary>
+        /// Запускает проверку введенных параметров
+        /// </summary>
         private void CheckingTextBoxesAsync()
         {
             Control.CheckForIllegalCrossThreadCalls = false;
             _backgroundWorker.DoWork += (obj, ea) => CheckingFormData();
             _backgroundWorker.RunWorkerAsync();
         }
-        
+
         /// <summary>
         /// Метод для парса строки в double
         /// <pama>В случае неудачного парса выбрасывает исключение</pama>
@@ -98,7 +98,7 @@ namespace FlaskWurtzUI
         /// <param name="textBox">TextBox, который трубется проверить</param>
         /// <param name="parameterName">Название параметра, который
         /// записывается в проверяемый TextBox</param>
-        private void CheckTexBox(TextBox textBox, 
+        private void CheckTexBox(TextBox textBox,
             ParameterName parameterName)
         {
             try
@@ -109,7 +109,7 @@ namespace FlaskWurtzUI
                 propertyInfo.SetValue(_currentParameters, value);
                 textBox.BackColor = Color.White;
             }
-            catch(Exception exception)
+            catch (Exception exception)
             {
                 if (exception.InnerException == null)
                 {
@@ -130,8 +130,8 @@ namespace FlaskWurtzUI
         /// </summary>
         private void CheckingFormData()
         {
-            while(true)
-            {  
+            while (true)
+            {
                 Thread.Sleep(1000);
                 ErrorsLabel.Text = null;
                 ErrorsLabel.ForeColor = Color.Red;
@@ -144,11 +144,11 @@ namespace FlaskWurtzUI
                 UpdateDependencies();
             }
         }
-       
+
         private void MainForm_Load(object sender, EventArgs e)
         {
             CheckingTextBoxesAsync();
-            DependenciesToolTip.SetToolTip(DependenciesButton, 
+            DependenciesToolTip.SetToolTip(DependenciesButton,
                 "A ≥ 2*E\nE ≥ C + 5\nD ≤ A+B");
         }
 
@@ -166,7 +166,7 @@ namespace FlaskWurtzUI
                 builder.Assembly(_currentParameters);
 
             }
-            catch(ArgumentException ex)
+            catch (ArgumentException ex)
             {
                 MessageBox.Show(ex.Message);
             }

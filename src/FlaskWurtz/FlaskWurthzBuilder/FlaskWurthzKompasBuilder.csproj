@@ -22,7 +22,7 @@
       <HintPath>..\KompasAPI\Kompas6Constants3D.dll</HintPath>
     </Reference>
     <Reference Include="KompasAPI7">
-      <HintPath>..\KompasAPI\KompasAPI7.dll</HintPath>
+      <HintPath>..\..\..\..\DFCAD\src\FlaskWurtz\KompasAPI\KompasAPI7.dll</HintPath>
     </Reference>
   </ItemGroup>
 

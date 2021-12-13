@@ -76,7 +76,7 @@ namespace FlaskWurtzUI
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(73, 15);
             this.label2.TabIndex = 2;
-            this.label2.Text = "20 - 100 mm";
+            this.label2.Text = "20 - 170 mm";
             // 
             // label3
             // 
@@ -154,7 +154,7 @@ namespace FlaskWurtzUI
             // 
             this.BuildButton.Enabled = false;
             this.BuildButton.FlatAppearance.BorderSize = 0;
-            this.BuildButton.Location = new System.Drawing.Point(281, 290);
+            this.BuildButton.Location = new System.Drawing.Point(281, 293);
             this.BuildButton.Name = "BuildButton";
             this.BuildButton.Size = new System.Drawing.Size(75, 23);
             this.BuildButton.TabIndex = 15;
@@ -171,7 +171,7 @@ namespace FlaskWurtzUI
             this.PromtButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.PromtButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.PromtButton.Image = ((System.Drawing.Image)(resources.GetObject("PromtButton.Image")));
-            this.PromtButton.Location = new System.Drawing.Point(12, 290);
+            this.PromtButton.Location = new System.Drawing.Point(12, 291);
             this.PromtButton.Name = "PromtButton";
             this.PromtButton.Size = new System.Drawing.Size(25, 25);
             this.PromtButton.TabIndex = 17;
@@ -258,7 +258,7 @@ namespace FlaskWurtzUI
             this.ParametersGroupbox.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.ParametersGroupbox.Location = new System.Drawing.Point(12, 12);
             this.ParametersGroupbox.Name = "ParametersGroupbox";
-            this.ParametersGroupbox.Size = new System.Drawing.Size(241, 164);
+            this.ParametersGroupbox.Size = new System.Drawing.Size(241, 165);
             this.ParametersGroupbox.TabIndex = 27;
             this.ParametersGroupbox.TabStop = false;
             this.ParametersGroupbox.Text = "Parameters";
@@ -269,7 +269,7 @@ namespace FlaskWurtzUI
             this.groupBox1.Controls.Add(this.DependenciesLabel);
             this.groupBox1.Location = new System.Drawing.Point(259, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(97, 164);
+            this.groupBox1.Size = new System.Drawing.Size(97, 165);
             this.groupBox1.TabIndex = 28;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Current Dependencies";
@@ -283,7 +283,7 @@ namespace FlaskWurtzUI
             this.DependenciesButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.DependenciesButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.DependenciesButton.Image = ((System.Drawing.Image)(resources.GetObject("DependenciesButton.Image")));
-            this.DependenciesButton.Location = new System.Drawing.Point(67, 130);
+            this.DependenciesButton.Location = new System.Drawing.Point(66, 130);
             this.DependenciesButton.Name = "DependenciesButton";
             this.DependenciesButton.Size = new System.Drawing.Size(25, 25);
             this.DependenciesButton.TabIndex = 29;
@@ -294,7 +294,7 @@ namespace FlaskWurtzUI
             // 
             this.groupBox2.Controls.Add(this.ErrorsLabel);
             this.groupBox2.ImeMode = System.Windows.Forms.ImeMode.Off;
-            this.groupBox2.Location = new System.Drawing.Point(12, 182);
+            this.groupBox2.Location = new System.Drawing.Point(12, 183);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(344, 102);
             this.groupBox2.TabIndex = 29;
@@ -308,16 +308,18 @@ namespace FlaskWurtzUI
             // 
             // MainForm
             // 
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(368, 320);
+            this.ClientSize = new System.Drawing.Size(368, 323);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.ParametersGroupbox);
             this.Controls.Add(this.PromtButton);
             this.Controls.Add(this.BuildButton);
-            this.MaximumSize = new System.Drawing.Size(384, 359);
-            this.MinimumSize = new System.Drawing.Size(384, 359);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            this.MaximumSize = new System.Drawing.Size(384, 362);
+            this.MinimumSize = new System.Drawing.Size(384, 362);
             this.Name = "MainForm";
             this.Text = "Flask Wurtz";
             this.Load += new System.EventHandler(this.MainForm_Load);

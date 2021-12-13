@@ -29,7 +29,7 @@ namespace FlaskWurthzSDK
         /// Поле, хранящее параметр длины горла колбы
         /// </summary>
         private double _neckLength;
-       
+
         /// <summary>
         /// Свойство обрабатывающее поле диаметра отвода колбы,
         /// Содержит валидацию доспустимых значений
@@ -37,12 +37,12 @@ namespace FlaskWurthzSDK
         public double BendDiameter
         {
             get => _bendDiameter;
-            
-            set 
+
+            set
             {
                 const double minValue = 5;
                 const double maxValue = 30;
-                SetValue(ref _bendLength, value,
+                SetValue(ref _bendDiameter, value,
                     minValue, maxValue, ParameterName.BendDiameter);
             }
         }
@@ -54,12 +54,12 @@ namespace FlaskWurthzSDK
         public double BendLength
         {
             get => _bendLength;
-            
-            set 
+
+            set
             {
                 const double minValue = 30;
-                SetValue(ref _bendLength,value,minValue, 
-                    FlaskDiameter + NeckLength,ParameterName.BendLength);
+                SetValue(ref _bendLength, value, minValue,
+                    FlaskDiameter + NeckLength, ParameterName.BendLength);
             }
         }
 
@@ -70,12 +70,12 @@ namespace FlaskWurthzSDK
         public double FlaskDiameter
         {
             get => _flaskDiameter;
-            
-            set 
+
+            set
             {
                 const double maxValue = 170;
-                SetValue(ref _flaskDiameter,value, 
-                    2 * NeckDiameter,maxValue,ParameterName.FlaskDiameter);
+                SetValue(ref _flaskDiameter, value,
+                    2 * NeckDiameter, maxValue, ParameterName.FlaskDiameter);
             }
         }
 
@@ -86,12 +86,12 @@ namespace FlaskWurthzSDK
         public double NeckDiameter
         {
             get => _neckDiameter;
-            
-            set 
+
+            set
             {
                 const double maxValue = 85;
-                SetValue(ref _neckDiameter,value, 
-                    BendDiameter + 5.0,maxValue,ParameterName.NeckDiameter);
+                SetValue(ref _neckDiameter, value,
+                    BendDiameter + 5.0, maxValue, ParameterName.NeckDiameter);
             }
         }
 
@@ -102,7 +102,7 @@ namespace FlaskWurthzSDK
         public double NeckLength
         {
             get => _neckLength;
-            
+
             set
             {
                 const double minValue = 40;
@@ -122,7 +122,7 @@ namespace FlaskWurthzSDK
         private void SetValue(ref double property, double value,
             double minValue, double maxValue, ParameterName parameter)
         {
-            Validator.AssertRangeParameters(minValue,maxValue,value,parameter);
+            Validator.AssertRangeParameters(minValue, maxValue, value, parameter);
             property = value;
         }
     }
