@@ -153,36 +153,15 @@ namespace FlaskWurtzUI
             int number = 0;
             if (radioBtn != null)
             {
-                switch (radioBtn.Name)
+                number = radioBtn.Name switch
                 {
-                    case "OneBendRadioButton":
-                    {
-                        number = 1;
-                        break;
-                    }
-
-                    case "TwoBendsRadioButton":
-                    {
-                        number = 2;
-                        break;
-                    }
-
-                    case "ThreeBendsRadioButton":
-                    {
-                        number = 3;
-                        break;
-                    }
-
-                    case "FourBendsRadioButton":
-                    {
-                        number = 4;
-                        break;
-                    }
-                }
-
+                    "OneBendRadioButton" => 1,
+                    "TwoBendsRadioButton" => 2,
+                    "ThreeBendsRadioButton" => 3,
+                    "FourBendsRadioButton" => 4,
+                    _ => number
+                };
             }
-
-
 
             return number;
         }
@@ -223,7 +202,6 @@ namespace FlaskWurtzUI
         {
             var number = CheckRadioButton();
             _currentParameters.NumberBends = number;
-            MessageBox.Show(number.ToString());
             try
             {
                 var builder = new FlaskWurthzBuilder();
