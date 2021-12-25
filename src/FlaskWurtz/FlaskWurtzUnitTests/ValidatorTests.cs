@@ -8,6 +8,9 @@ using NUnit.Framework;
 
 namespace FlaskWurtzUnitTests
 {
+    /// <summary>
+    /// Класс хранит в себе методы для тестирования класса Validator
+    /// </summary>
     [TestFixture]
     class ValidatorTests
     {

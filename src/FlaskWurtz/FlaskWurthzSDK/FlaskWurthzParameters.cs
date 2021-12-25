@@ -115,6 +115,10 @@ namespace FlaskWurthzSDK
             }
         }
 
+        /// <summary>
+        /// Свойство обрабатывающее поле количества отводов колбы,
+        /// Содержит валидацию доспустимых значений
+        /// </summary>
         public double NumberBends
         {
             get => _numberBends;
@@ -130,17 +134,17 @@ namespace FlaskWurthzSDK
         /// <summary>
         /// Устанавливает значение в требуемое свойство
         /// </summary>
-        /// <param name="property">Текущее свойство</param>
+        /// <param name="field">Текущее свойство</param>
         /// <param name="value">Текущее значение</param>
         /// <param name="minValue">Минимальное значение</param>
         /// <param name="maxValue">Максимальное значение</param>
         /// <param name="parameter">Название параметра</param>
-        private void SetValue(ref double property, double value,
+        private void SetValue(ref double field, double value,
             double minValue, double maxValue, ParameterName parameter)
         {
             Validator.AssertRangeParameters(minValue, maxValue, 
                 value, parameter);
-            property = value;
+            field = value;
         }
     }
 }
