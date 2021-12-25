@@ -1,5 +1,5 @@
 ﻿
-namespace FlaskWurtzUI
+namespace FlaskWurthzUI
 {
     partial class MainForm
     {

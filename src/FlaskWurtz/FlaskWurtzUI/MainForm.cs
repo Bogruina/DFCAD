@@ -4,10 +4,10 @@ using System.Drawing;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using FlaskWurthzSDK;
 using FlaskWurthzKompasBuilder;
+using FlaskWurthzSDK;
 
-namespace FlaskWurtzUI
+namespace FlaskWurthzUI
 {
     /// <summary>
     /// Класс, хранищий и  обрабатывающий
