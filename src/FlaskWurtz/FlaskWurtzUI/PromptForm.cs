@@ -3,7 +3,6 @@ using System.Windows.Forms;
 
 namespace FlaskWurthzUI
 {
-    //TODO:
     /// <summary>
     /// Класс, который хранит форму
     /// с изображением 3D модели колбы Вюрца.
