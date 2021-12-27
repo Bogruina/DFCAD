@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FlaskWurthzSDK\FlaskWurthzSDK.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="KAPITypes">
+      <HintPath>..\KompasAPI\KAPITypes.dll</HintPath>
+    </Reference>
+    <Reference Include="Kompas6API5">
+      <HintPath>..\KompasAPI\Kompas6API5.dll</HintPath>
+    </Reference>
+    <Reference Include="Kompas6Constants">
+      <HintPath>..\KompasAPI\Kompas6Constants.dll</HintPath>
+    </Reference>
+    <Reference Include="Kompas6Constants3D">
+      <HintPath>..\KompasAPI\Kompas6Constants3D.dll</HintPath>
+    </Reference>
+    <Reference Include="KompasAPI7">
+      <HintPath>..\..\..\..\DFCAD\src\FlaskWurtz\KompasAPI\KompasAPI7.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
